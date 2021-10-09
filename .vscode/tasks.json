@@ -6,7 +6,7 @@
         {
             "label": "Transform to EXE",
             "type": "shell",
-            "command": "pyinstaller --onefile ${workspaceFolder}/main.spec",
+            "command": "pyinstaller --clean --noconfirm ${workspaceFolder}/main.spec",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
