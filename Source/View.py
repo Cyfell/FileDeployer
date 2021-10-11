@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Text, ttk
+from tkinter import ttk
 from tkinter import filedialog
 from Constant import VERSION_APP
 
@@ -16,6 +16,7 @@ LIST_SERVER = [
 class View(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
+
         self.parent = parent
         self.parent.title("File Deployer KEOLIS V{}".format(VERSION_APP))
 
@@ -32,7 +33,7 @@ class View(tk.Frame):
         self.label_frame_config.grid(row=0, column=0, sticky='w', pady=5)
 
         self.label_frame_config.list_serv = tk.Listbox(
-            self.label_frame_config, height=5, selectbackground="blue", width=67)
+            self.label_frame_config, height=5, selectbackground="blue", width=67, selectmode='multiple')
         self.label_frame_config.list_serv.grid(row=0, column=0, sticky='w')
         for server in LIST_SERVER:
             self.label_frame_config.list_serv.insert(tk.END, server)
