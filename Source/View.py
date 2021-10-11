@@ -58,11 +58,6 @@ class View(tk.Frame):
         self.label_frame_config.frame_action.button_delete.grid(
             row=0, column=1)
 
-        self.label_frame_config.frame_action.check_subfolder = tk.Checkbutton(
-            self.label_frame_config.frame_action, text="travailler dans tous les sous dossiers des serveurs")
-        self.label_frame_config.frame_action.check_subfolder.grid(
-            row=1, column=0, columnspan=2, sticky='w')
-
         self.tab = ttk.Notebook(self.parent, width=420)
         self.tab.grid(row=1, column=0, sticky='w', pady=10)
 
