@@ -7,8 +7,10 @@ class Model:
         self.server_list = []
         self.server_list_var = tk.StringVar(value=self.server_list)
 
-    def add_one(self):
-        self.val.set(self.val.get() + 1)
+    def add_serv(self, serv):
+        self.server_list.append(serv)
+        self.server_list_var.set(self.server_list)
 
-    def reset(self):
-        self.val.set(0)
+    def remove_serv(self, index):
+        self.server_list.pop(index)
+        self.server_list_var.set(self.server_list)

@@ -1,5 +1,6 @@
 import logging
 import tkinter
+from tkinter import filedialog
 from Model import Model
 from Logger import log_controller, log_formatter
 from View import View
@@ -64,11 +65,24 @@ class Controller:
 
     def on_click_add_serv(self):
         log_controller.debug("Clic on ADD SERV detected")
-        pass
+        dirselect = filedialog.askdirectory()
+        log_controller.info(
+            "New server directory selected by user: {}".format(dirselect))
+        self.model.add_serv(dirselect)
 
     def on_click_del_serv(self):
         log_controller.debug("Clic on DEL SERV detected")
-        pass
+        # Getting selected servers
+        index_selected_servs = self.view.label_frame_config.list_serv.curselection()
+
+        # Check if no current selection
+        if (not index_selected_servs):
+            log_controller.info("No server selected, nothing happend")
+        else:
+            for serv_index in index_selected_servs:
+                log_controller.info(
+                    "Deleting server '{}' from the list".format(self.model.server_list[serv_index]))
+                self.model.remove_serv(serv_index)
 
     def on_click_preview_delete(self):
         log_controller.debug("Clic on PREV DEL detected")

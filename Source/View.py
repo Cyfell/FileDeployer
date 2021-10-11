@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import filedialog
 from Constant import VERSION_APP
 
 
@@ -18,12 +17,13 @@ class View(tk.Frame):
         self.menu.menu_options = tk.Menu(self.menu)
         self.menu.add_cascade(label="Options", menu=self.menu.menu_options)
 
+        # FRAME SERVER CONFIGURATION
         self.label_frame_config = tk.LabelFrame(
             self.parent, text="Configuration serveur")
         self.label_frame_config.grid(row=0, column=0, sticky='w', pady=5)
 
         self.label_frame_config.list_serv = tk.Listbox(
-            self.label_frame_config, height=5, selectbackground="blue", width=67, selectmode='multiple')
+            self.label_frame_config, height=5, selectbackground="blue", width=67, selectmode='multiple', activestyle='dotbox')
         self.label_frame_config.list_serv.grid(row=0, column=0, sticky='w')
 
         self.label_frame_config.scrollb = ttk.Scrollbar(
