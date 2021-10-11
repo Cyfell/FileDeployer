@@ -35,6 +35,17 @@ class Controller:
         self.view.label_frame_config.list_serv.config(
             listvariable=self.model.server_list_var)
 
+        self.view.menu.menu_options.add_command(
+            label="Quitter", command=exit)
+
+        self.view.frame_log_window.scrollb.config(
+            command=self.view.frame_log_window.text_log.yview)
+        self.view.frame_log_window.text_log['yscrollcommand'] = self.view.frame_log_window.scrollb.set
+
+        self.view.label_frame_config.scrollb.config(
+            command=self.view.label_frame_config.list_serv.yview)
+        self.view.label_frame_config.list_serv['yscrollcommand'] = self.view.label_frame_config.scrollb.set
+
         # Callback
         self.view.label_frame_config.frame_action.button_add.config(
             command=self.on_click_add_serv)

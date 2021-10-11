@@ -3,15 +3,6 @@ from tkinter import ttk
 from tkinter import filedialog
 from Constant import VERSION_APP
 
-LIST_SERVER = [
-    "//Sddidfkofil01/bridf/Senlis/Registre_traitement_Oise",
-    "//Sddidfkofil01/bridf/Bretagne/Registre_traitement_Bretagne",
-    "//Sddidfkofil01/bridf/toto/Registre_traitement_toto",
-    "//Sddidfkofil01/bridf/titi/Registre_traitement_titi",
-    "//Sddidfkofil01/bridf/tata/Registre_traitement_tata",
-    "//Sddidfkofil01/bridf/tutu/Registre_traitement_tutu"
-]
-
 
 class View(tk.Frame):
     def __init__(self, parent):
@@ -25,7 +16,6 @@ class View(tk.Frame):
         self.parent.config(menu=self.menu)
 
         self.menu.menu_options = tk.Menu(self.menu)
-        self.menu.menu_options.add_command(label="Quitter", command=exit)
         self.menu.add_cascade(label="Options", menu=self.menu.menu_options)
 
         self.label_frame_config = tk.LabelFrame(
@@ -35,14 +25,11 @@ class View(tk.Frame):
         self.label_frame_config.list_serv = tk.Listbox(
             self.label_frame_config, height=5, selectbackground="blue", width=67, selectmode='multiple')
         self.label_frame_config.list_serv.grid(row=0, column=0, sticky='w')
-        for server in LIST_SERVER:
-            self.label_frame_config.list_serv.insert(tk.END, server)
 
         self.label_frame_config.scrollb = ttk.Scrollbar(
-            self.label_frame_config, command=self.label_frame_config.list_serv.yview)
+            self.label_frame_config)
         self.label_frame_config.scrollb.grid(
             row=0, column=1, sticky='nsew')
-        self.label_frame_config.list_serv['yscrollcommand'] = self.label_frame_config.scrollb.set
 
         self.label_frame_config.frame_action = tk.Frame(
             self.label_frame_config)
@@ -50,7 +37,7 @@ class View(tk.Frame):
             row=1, column=0, sticky='w')
 
         self.label_frame_config.frame_action.button_add = tk.Button(
-            self.label_frame_config.frame_action, text="Ajouter nouveau serveur", bg='green', command=filedialog.askopenfilename, width=25)
+            self.label_frame_config.frame_action, text="Ajouter nouveau serveur", bg='green', width=25)
         self.label_frame_config.frame_action.button_add.grid(
             row=0, column=0)
 
@@ -93,7 +80,7 @@ class View(tk.Frame):
         self.tab.frame_deploy.label_desc.grid(row=0, column=0, sticky='w')
 
         self.tab.frame_deploy.button_search = tk.Button(
-            self.tab.frame_deploy, text="Rechercher", bg='lightblue', command=filedialog.askopenfilename)
+            self.tab.frame_deploy, text="Rechercher", bg='lightblue')
         self.tab.frame_deploy.button_search.grid(row=1, column=0, sticky='w')
 
         self.tab.frame_deploy.label_selected_file = tk.Label(
@@ -124,7 +111,6 @@ class View(tk.Frame):
         self.frame_log_window.text_log.grid(
             row=0, column=0)
         self.frame_log_window.scrollb = ttk.Scrollbar(
-            self.frame_log_window, command=self.frame_log_window.text_log.yview)
+            self.frame_log_window)
         self.frame_log_window.scrollb.grid(
             row=0, column=1, sticky='nsew')
-        self.frame_log_window.text_log['yscrollcommand'] = self.frame_log_window.scrollb.set
