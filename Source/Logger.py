@@ -19,4 +19,4 @@ ch.setFormatter(log_formatter)
 log_controller.addHandler(ch)
 
 # set default levels
-log_controller.setLevel(logging.DEBUG)
+log_controller.setLevel(logging.INFO)

@@ -107,7 +107,7 @@ class View(tk.Frame):
         self.frame_log_window.grid(
             row=2, column=0, sticky='w')
         self.frame_log_window.text_log = tk.Text(
-            self.frame_log_window, bg='white', width=50)
+            self.frame_log_window, bg='white', width=65, font='Arial 8')
         self.frame_log_window.text_log.grid(
             row=0, column=0)
         self.frame_log_window.scrollb = ttk.Scrollbar(
