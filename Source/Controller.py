@@ -42,7 +42,7 @@ class Controller:
             textvariable=self.model.deploy_filename)
 
         self.view.menu.menu_options.add_command(
-            label="Quitter", command=exit)
+            label="Quitter", command=root.destroy)
 
         self.view.frame_log_window.scrollb.config(
             command=self.view.frame_log_window.text_log.yview)
