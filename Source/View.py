@@ -84,7 +84,7 @@ class View(tk.Frame):
         self.tab.frame_deploy.button_search.grid(row=1, column=0, sticky='w')
 
         self.tab.frame_deploy.label_selected_file = tk.Label(
-            self.tab.frame_deploy, text="Aucun fichier selectionné")
+            self.tab.frame_deploy)
         self.tab.frame_deploy.label_selected_file.grid(
             row=1, column=1, sticky='w')
 

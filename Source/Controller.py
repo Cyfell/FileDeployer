@@ -1,5 +1,7 @@
 import logging
+import os
 import tkinter
+import shutil
 from tkinter import filedialog
 from Model import Model
 from Logger import log_controller, log_formatter
@@ -36,6 +38,9 @@ class Controller:
         self.view.label_frame_config.list_serv.config(
             listvariable=self.model.server_list_var)
 
+        self.view.tab.frame_deploy.label_selected_file.config(
+            textvariable=self.model.deploy_filename)
+
         self.view.menu.menu_options.add_command(
             label="Quitter", command=exit)
 
@@ -66,9 +71,10 @@ class Controller:
     def on_click_add_serv(self):
         log_controller.debug("Clic on ADD SERV detected")
         dirselect = filedialog.askdirectory()
-        log_controller.info(
-            "New server directory selected by user: {}".format(dirselect))
-        self.model.add_serv(dirselect)
+        if dirselect:
+            log_controller.info(
+                "New server directory selected by user: {}".format(dirselect))
+            self.model.add_serv(dirselect)
 
     def on_click_del_serv(self):
         log_controller.debug("Clic on DEL SERV detected")
@@ -79,27 +85,73 @@ class Controller:
         if (not index_selected_servs):
             log_controller.info("No server selected, nothing happend")
         else:
-            for serv_index in index_selected_servs:
+            for iter in range(len(index_selected_servs)):
+                index_selected = self.view.label_frame_config.list_serv.curselection()[
+                    0]
                 log_controller.info(
-                    "Deleting server '{}' from the list".format(self.model.server_list[serv_index]))
-                self.model.remove_serv(serv_index)
+                    "Deleting server '{}' from the list".format(self.model.server_list[index_selected]))
+                self.model.remove_serv(index_selected)
 
     def on_click_preview_delete(self):
         log_controller.debug("Clic on PREV DEL detected")
-        pass
+        # Get filename in entry and current server list
+        self.delete_file(
+            self.model.server_list, self.view.tab.frame_delete.entry_delete.get(), True)
 
     def on_click_delete_files(self):
         log_controller.debug("Clic on DEL FILES detected")
-        pass
+        # Get filename in entry and current server list
+        self.delete_file(
+            self.model.server_list, self.view.tab.frame_delete.entry_delete.get(), False)
+
+    def check_user_input(self, directories, filename):
+        result = True
+        if (not filename):
+            log_controller.warning(
+                "No filename specified by user, nothing happens")
+            result = False
+
+        elif(len(directories) == 0):
+            log_controller.warning(
+                "No directories specified by user, nothing happens")
+            result = False
+
+        return result
+
+    def delete_file(self, directories, filename, preview=True):
+        if (self.check_user_input(directories, filename) == True):
+            # check if file exist on servers
+            for dir in directories:
+                if os.path.isfile(os.path.join(dir, filename)):
+                    log_controller.info("Deleting file '{}'".format(
+                        os.path.join(dir, filename)))
+                    if (not preview):
+                        # delete it
+                        os.remove(os.path.join(dir, filename))
 
     def on_click_preview_deploy(self):
         log_controller.debug("Clic on PREV DEPLOY detected")
-        pass
+        self.deploy_file(self.model.server_list,
+                         self.model.deploy_filename.get(), False)
 
     def on_click_deploy_files(self):
         log_controller.debug("Clic on DEPLOY FILES detected")
-        pass
+        self.deploy_file(self.model.server_list,
+                         self.model.deploy_filename.get(), True)
+
+    def deploy_file(self, directories, filepath, preview=True):
+        if (self.check_user_input(directories, filepath) == True):
+            # check if file exist on servers
+            for dir in directories:
+                if os.path.isfile(filepath):
+                    log_controller.info("copying file '{}' to directory '{}'".format(
+                        filepath, dir))
+                    if (not preview):
+                        # delete it
+                        shutil.copyfile(filepath, os.path.join(
+                            dir, os.path.basename(filepath)))
 
     def on_click_search_file(self):
         log_controller.debug("Clic on SEARCH FILES detected")
-        pass
+        selected_filename = filedialog.askopenfilename()
+        self.model.update_deploy_filename(selected_filename)

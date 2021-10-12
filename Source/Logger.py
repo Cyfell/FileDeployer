@@ -10,7 +10,7 @@ ch.setLevel(logging.DEBUG)
 
 # create formatter
 log_formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%I:%M:%S')
+    '%(asctime)s - %(levelname)s - %(message)s', datefmt='%I:%M:%S')
 
 # add formatter to ch
 ch.setFormatter(log_formatter)
