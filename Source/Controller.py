@@ -180,13 +180,13 @@ class Controller:
                 else:
                     log_controller.warning(
                         "Failure importing {} directory".format(line[:-1]))
-        config_file.close()
+            config_file.close()
 
     def on_click_save_serv(self):
         log_controller.debug("Clic on SAVE SERV detected")
         config_filename = filedialog.asksaveasfile(
-            mode='w', defaultextension=".txt")
+            mode='w', defaultextension=".txt", filetypes=[("Config liste", "*.txt")])
         if (config_filename is not None):
             for dir in self.model.server_list:
                 config_filename.write(dir + '\n')
-        config_filename.close()
+            config_filename.close()
