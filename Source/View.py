@@ -81,12 +81,12 @@ class View(tk.Frame):
 
         self.tab.frame_deploy.button_search = tk.Button(
             self.tab.frame_deploy, text="Rechercher", bg='lightblue')
-        self.tab.frame_deploy.button_search.grid(row=1, column=0, sticky='w')
+        self.tab.frame_deploy.button_search.grid(row=0, column=1, sticky='w')
 
         self.tab.frame_deploy.label_selected_file = tk.Label(
             self.tab.frame_deploy)
         self.tab.frame_deploy.label_selected_file.grid(
-            row=1, column=1, sticky='w')
+            row=1, column=0, sticky='w', columnspan=2)
 
         self.tab.frame_deploy.button_preview = tk.Button(
             self.tab.frame_deploy, text="Prévisualiser les opérations", bg='orange', width=40, font='Arial 10 bold')
