@@ -39,12 +39,22 @@ class View(tk.Frame):
         self.label_frame_config.frame_action.button_add = tk.Button(
             self.label_frame_config.frame_action, text="Ajouter nouveau serveur", bg='green', width=25)
         self.label_frame_config.frame_action.button_add.grid(
-            row=0, column=0)
+            row=0, column=0, pady=5, padx=5)
 
         self.label_frame_config.frame_action.button_delete = tk.Button(
             self.label_frame_config.frame_action, text="Supprimer serveur sélectionné", bg='red', width=25)
         self.label_frame_config.frame_action.button_delete.grid(
-            row=0, column=1)
+            row=0, column=1, pady=5, padx=5)
+
+        self.label_frame_config.frame_action.button_save_servs = tk.Button(
+            self.label_frame_config.frame_action, text="Sauvegarder serveur liste", bg='lightblue', width=25)
+        self.label_frame_config.frame_action.button_save_servs.grid(
+            row=1, column=0, padx=5)
+
+        self.label_frame_config.frame_action.button_load_servs = tk.Button(
+            self.label_frame_config.frame_action, text="Charger serveur liste", bg='lightgreen', width=25)
+        self.label_frame_config.frame_action.button_load_servs.grid(
+            row=1, column=1, padx=5)
 
         self.tab = ttk.Notebook(self.parent, width=420)
         self.tab.grid(row=1, column=0, sticky='w', pady=10)

@@ -57,6 +57,10 @@ class Controller:
             command=self.on_click_add_serv)
         self.view.label_frame_config.frame_action.button_delete.config(
             command=self.on_click_del_serv)
+        self.view.label_frame_config.frame_action.button_save_servs.config(
+            command=self.on_click_save_serv)
+        self.view.label_frame_config.frame_action.button_load_servs.config(
+            command=self.on_click_load_serv)
         self.view.tab.frame_delete.button_preview.config(
             command=self.on_click_preview_delete)
         self.view.tab.frame_delete.button_delete.config(
@@ -74,7 +78,11 @@ class Controller:
         if dirselect:
             log_controller.info(
                 "New server directory selected by user: {}".format(dirselect))
-            self.model.add_serv(dirselect)
+            if dirselect not in self.model.server_list:
+                self.model.add_serv(dirselect)
+            else:
+                log_controller.info(
+                    "{} directory already in directory list".format(dirselect))
 
     def on_click_del_serv(self):
         log_controller.debug("Clic on DEL SERV detected")
@@ -155,3 +163,30 @@ class Controller:
         log_controller.debug("Clic on SEARCH FILES detected")
         selected_filename = filedialog.askopenfilename()
         self.model.update_deploy_filename(selected_filename)
+
+    def on_click_load_serv(self):
+        log_controller.debug("Clic on LOAD SERV detected")
+        config_file = filedialog.askopenfile(mode='r')
+        if (config_file is not None):
+            for line in config_file:
+                if os.path.isdir(line[:-1]):
+                    log_controller.info(
+                        "Found valid directory : {}".format(line[:-1]))
+                    if line[:-1] not in self.model.server_list:
+                        self.model.add_serv(line[:-1])
+                    else:
+                        log_controller.info(
+                            "{} directory already in directory list".format(line[:-1]))
+                else:
+                    log_controller.warning(
+                        "Failure importing {} directory".format(line[:-1]))
+        config_file.close()
+
+    def on_click_save_serv(self):
+        log_controller.debug("Clic on SAVE SERV detected")
+        config_filename = filedialog.asksaveasfile(
+            mode='w', defaultextension=".txt")
+        if (config_filename is not None):
+            for dir in self.model.server_list:
+                config_filename.write(dir + '\n')
+        config_filename.close()
